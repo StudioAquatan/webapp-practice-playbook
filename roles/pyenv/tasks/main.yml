@@ -1,6 +1,8 @@
 - block:
   - name: Source .bashrc
     shell: source ~/.bashrc
+    args:
+      executable: /bin/bash
     check_mode: no
     changed_when: no
 
