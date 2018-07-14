@@ -1,0 +1,12 @@
+- block:
+  - name: Create practice directory
+    file:
+      path: "{{ practice_dir }}"
+      state: directory
+
+  - name: Create virtualenv
+    shell: pipenv install
+    args:
+      chdir: "{{ practice_dir }}"
+      creates: "{{ practice_dir }}/.venv"
+

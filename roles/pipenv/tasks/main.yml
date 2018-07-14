@@ -1,0 +1,19 @@
+- name: Pyenv global
+  shell: "pyenv global {{ pyenv_global_versions | join(' ') }}"
+
+- name: Upgrade pip
+  pip:
+    name: pip
+    extra_args: --upgrade
+    executable: "{{ ansible_env.HOME }}/.anyenv/envs/pyenv/shims/pip3"
+
+- name: Install pipenv
+  pip:
+    name: pipenv
+    executable: "{{ ansible_env.HOME }}/.anyenv/envs/pyenv/shims/pip3"
+
+- name: Enable PIPENV_VENV_IN_PROJECT
+  lineinfile:
+    dest: "{{ ansible_env.HOME }}/.bashrc"
+    line: export PIPENV_VENV_IN_PROJECT=true
+  when: pipenv_venv_in_project

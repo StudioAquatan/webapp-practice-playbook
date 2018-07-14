@@ -1,0 +1,19 @@
+- name: Obtain path to openssl (workaround for High Sierra)
+  shell: brew --prefix openssl
+  register: openssl_prefix
+  changed_when: false
+  check_mode: no
+
+- name: Install python
+  shell: pyenv install '{{ item.version }}'
+  args:
+    creates: '{{ ansible_env.HOME }}/.anyenv/envs/pyenv/versions/{{ item.version }}'
+  environment:
+    PYTHON_CONFIGURE_OPTS: '{{ item.option }}'
+    CFLAGS: '-I{{ openssl_prefix.stdout }}/include'
+    LDFLAGS: '-L{{ openssl_prefix.stdout }}/lib'
+  with_items:
+    - '{{ python_versions }}'
+  when: python_versions is defined
+  notify:
+    - pyenv_rehash

@@ -1,0 +1,9 @@
+- name: Install python
+  shell: pyenv install '{{ item.version }}'
+  args:
+    creates: '~/.anyenv/envs/pyenv/versions/{{ item.version }}'
+  with_items:
+    - '{{ python_versions }}'
+  when: python_versions is defined
+  notify:
+    - pyenv_rehash

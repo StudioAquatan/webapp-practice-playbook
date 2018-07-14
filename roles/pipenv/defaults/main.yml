@@ -1,0 +1,5 @@
+pyenv_global_versions:
+  - system
+  - 3.7.0
+
+pipenv_venv_in_project: True

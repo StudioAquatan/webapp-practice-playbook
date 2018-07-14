@@ -1,0 +1,4 @@
+python_versions:
+  - { version: 3.7.0, option: --disable-framework }
+
+

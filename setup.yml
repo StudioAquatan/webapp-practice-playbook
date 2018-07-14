@@ -1,0 +1,17 @@
+- hosts: all
+  connection: localhost
+  roles:
+    - name: ssh
+      tags: ssh
+
+    - name: anyenv
+      tags: anyenv
+
+    - name: pyenv
+      tags: pyenv
+
+    - name: pipenv
+      tags: pipenv
+
+    - name: webapp-dev
+      tags: webapp-dev

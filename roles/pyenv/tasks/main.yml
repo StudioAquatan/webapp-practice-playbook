@@ -1,0 +1,23 @@
+- block:
+  - name: Install pyenv
+    shell: anyenv install pyenv
+    args:
+      creates: "{{ ansible_env.HOME }}/.anyenv/envs/pyenv/bin/pyenv"
+
+  - name: Install pyenv-virtualenv
+    git:
+      repo: https://github.com/yyuu/pyenv-virtualenv.git
+      dest: "{{ ansible_env.HOME }}/.anyenv/envs/pyenv/plugins/pyenv-virtualenv"
+      version: master
+
+  tags: pyenv_install
+
+- block:
+  - include_tasks: macos.yml
+    when: ansible_os_family == 'Darwin'
+
+  - include_tasks: ubuntu.yml
+    when: ansible_os_faily == 'Debian'
+
+  tags: python_install
+

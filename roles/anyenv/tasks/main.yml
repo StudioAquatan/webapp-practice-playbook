@@ -1,0 +1,16 @@
+- block:
+  - name: Place anyenv repository
+    git:
+      repo: https://github.com/riywo/anyenv.git
+      dest: "{{ ansible_env.HOME }}/.anyenv"
+      version: master
+
+  - name: Add init script of anyenv to .bashrc
+    lineinfile:
+      dest: "{{ ansible_env.HOME }}/.bashrc"
+      line: "{{ item }}"
+    with_items:
+      - export PATH=$HOME/.anyenv/bin:$PATH
+      - eval '$(anyenv init -)'
+  tags: anyenv_install
+
