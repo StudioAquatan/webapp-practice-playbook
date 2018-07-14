@@ -5,5 +5,5 @@
   changed_when: no
 
 - include_tasks: wsl.yml
-  when: "Microsoft" in uname.stdout
+  when: '"Microsoft" in uname.stdout'
 
