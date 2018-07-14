@@ -1,4 +1,9 @@
 - block:
+  - name: Source .bashrc
+    shell: source ~/.bashrc
+    check_mode: no
+    changed_when: no
+
   - name: Install pyenv
     shell: anyenv install pyenv
     args:
