@@ -3,6 +3,8 @@
   roles:
     - name: ssh
       tags: ssh
+      when: 'ansible_os_family == "Debian"'
+      become: yes
 
     - name: anyenv
       tags: anyenv

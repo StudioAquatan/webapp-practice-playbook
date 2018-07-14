@@ -1,0 +1,9 @@
+- name: Obtain os information
+  shell: uname -r
+  register: uname
+  check_mode: no
+  changed_when: no
+
+- include_tasks: wsl.yml
+  when: "Microsoft" in uname.stdout
+
