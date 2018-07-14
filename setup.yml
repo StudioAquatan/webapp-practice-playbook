@@ -1,5 +1,5 @@
-- hosts: local
-  connection: localhost
+- hosts: localhost
+  connection: local
   roles:
     - name: ssh
       tags: ssh
