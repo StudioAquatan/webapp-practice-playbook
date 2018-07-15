@@ -24,7 +24,7 @@
     when: ansible_os_family == 'Darwin'
 
   - include_tasks: ubuntu.yml
-    when: ansible_os_faily == 'Debian'
+    when: ansible_os_family == 'Debian'
 
   tags: python_install
 
