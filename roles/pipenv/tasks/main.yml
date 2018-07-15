@@ -17,3 +17,8 @@
     dest: "{{ ansible_env.HOME }}/.bashrc"
     line: export PIPENV_VENV_IN_PROJECT=true
   when: pipenv_venv_in_project
+  register: pipenv_envvar
+
+- name: Source .bashrc
+  shell: source ~/.bashrc
+  when: 'ansible_env.SHELL == "/bin/bash" and pipenv_envvar.changed'
