@@ -1,27 +1,32 @@
 - name: Comment out PermitRootLogin
   lineinfile:
     path: /etc/ssh/sshd_config
-    regexp: '^PermitRootLogin'
-    line: '#PermitRootLogin'
+    regexp: '^PermitRootLogin yes$'
+    line: '#PermitRootLogin yes'
     state: present
     
 - name: Disallow root SSH access
   lineinfile:
     path: /etc/ssh/sshd_config
-    regexp: '^#PermitRootLogin'
     line: 'PermitRootLogin no'
     state: present
 
 - name: Comment out PermitRootLogin
   lineinfile:
     path: /etc/ssh/sshd_config
-    regexp: '^PasswordAuthentication'
-    line: '#PermitRootLogin'
+    regexp: '^PasswordAuthentication no$'
+    line: '#PermitRootLogin no'
     state: present
 
 - name: Enable PasswordAuthentication
   lineinfile:
     path: /etc/ssh/sshd_config
-    regexp: '^#PasswordAuthentication'
     line: 'PasswordAuthentication yes'
     state: present
+
+- name: Restart SSHD
+  systemd:
+    name: ssh
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
