@@ -1,9 +1,18 @@
+- name: /etc/ssh/ssh_host_rsa_key exists
+  stat:
+    path: /etc/ssh/ssh_host_rsa_key
+  register: ssh_host_rsa_key
+  check_mode: no
+
+- name: Reconfigure openssh-server
+  shell: dpkg-reconfigure openssh-server
+  when: not ssh_host_rsa_key.stat.exists
+
 - name: Comment out PermitRootLogin
   lineinfile:
     path: /etc/ssh/sshd_config
-    regexp: '^PermitRootLogin yes$'
-    line: '#PermitRootLogin yes'
-    state: present
+    regexp: '^PermitRootLogin (no|prohibit\-password)$'
+    state: absent
     
 - name: Disallow root SSH access
   lineinfile:
@@ -15,8 +24,7 @@
   lineinfile:
     path: /etc/ssh/sshd_config
     regexp: '^PasswordAuthentication no$'
-    line: '#PermitRootLogin no'
-    state: present
+    state: absent
 
 - name: Enable PasswordAuthentication
   lineinfile:
