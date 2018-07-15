@@ -7,34 +7,32 @@
 - name: Reconfigure openssh-server
   shell: dpkg-reconfigure openssh-server
   when: not ssh_host_rsa_key.stat.exists
+  notify: restart_sshd
 
 - name: Comment out PermitRootLogin
   lineinfile:
     path: /etc/ssh/sshd_config
     regexp: '^PermitRootLogin (no|prohibit\-password)$'
     state: absent
-    
+  notify: restart_sshd
+
 - name: Disallow root SSH access
   lineinfile:
     path: /etc/ssh/sshd_config
     line: 'PermitRootLogin no'
     state: present
+  notify: restart_sshd
 
 - name: Comment out PermitRootLogin
   lineinfile:
     path: /etc/ssh/sshd_config
     regexp: '^PasswordAuthentication no$'
     state: absent
+  notify: restart_sshd
 
 - name: Enable PasswordAuthentication
   lineinfile:
     path: /etc/ssh/sshd_config
     line: 'PasswordAuthentication yes'
     state: present
-
-- name: Restart SSHD
-  systemd:
-    name: ssh
-    state: restarted
-    daemon_reload: yes
-    enabled: yes
+  notify: restart_sshd

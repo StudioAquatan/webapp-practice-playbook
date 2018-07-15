@@ -5,6 +5,11 @@
       executable: /bin/bash
     check_mode: no
     changed_when: no
+    when: 'ansible_env.SHELL == "/bin/bash"'
+
+  - debug:
+      msg: "If next task fail, you should write some lines in order to load anyenv in your SHELL's configuration files and reload your shell to enable anyenv."
+    when: 'ansible_env.SHELL != "/bin/bash"'
 
   - name: Install pyenv
     shell: anyenv install pyenv
