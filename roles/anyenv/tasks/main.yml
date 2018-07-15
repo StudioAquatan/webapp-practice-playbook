@@ -6,11 +6,13 @@
       version: master
 
   - name: Add init script of anyenv to .bashrc
-    lineinfile:
+    blockinfile:
       dest: "{{ ansible_env.HOME }}/.bashrc"
-      line: "{{ item }}"
-    with_items:
-      - export PATH=$HOME/.anyenv/bin:$PATH
-      - eval '$(anyenv init -)'
+      block: |
+        if [ -e "~/.anyenv" ]; then
+          export PATH=$HOME/.anyenv/bin:$PATH
+          eval '$(anyenv init -)'
+        fi
+      marker: "# {mark} : Insert by Ansible in order to load pyenv"
   tags: anyenv_install
 
