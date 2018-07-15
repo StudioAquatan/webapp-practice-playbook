@@ -12,7 +12,7 @@
 - name: Comment out PermitRootLogin
   lineinfile:
     path: /etc/ssh/sshd_config
-    regexp: '^PermitRootLogin (no|prohibit\-password)$'
+    regexp: '^PermitRootLogin (yes|prohibit\-password)$'
     state: absent
   notify: restart_sshd
 
