@@ -11,7 +11,7 @@
       block: |
         if [ -d "$HOME/.anyenv" ]; then
           export PATH=$HOME/.anyenv/bin:$PATH
-          eval '$(anyenv init -)'
+          eval "$(anyenv init -)"
         fi
       marker: "# {mark} : Insert by Ansible in order to load pyenv"
   tags: anyenv_install
