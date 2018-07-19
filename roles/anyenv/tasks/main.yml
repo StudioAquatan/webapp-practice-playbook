@@ -9,7 +9,7 @@
     blockinfile:
       dest: "{{ ansible_env.HOME }}/.bashrc"
       block: |
-        if [ -e "~/.anyenv" ]; then
+        if [ -d "$HOME/.anyenv" ]; then
           export PATH=$HOME/.anyenv/bin:$PATH
           eval '$(anyenv init -)'
         fi
